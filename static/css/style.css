@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+body,
+button {
+  font-family: "Inter", sans-serif;
+}
+:root {
+  --offcanvas-width: 270px;
+  --topNavbarHeight: 58px;
+}
+.sidebar-nav {
+  width: var(--offcanvas-width);
+}
+.sidebar-link {
+  display: flex;
+  align-items: center;
+}
+.sidebar-link .right-icon {
+  display: inline-flex;
+}
+.sidebar-link[aria-expanded="true"] .right-icon {
+  transform: rotate(180deg);
+}
+@media (min-width: 992px) {
+  body {
+    overflow: auto !important;
+  }
+  main {
+    margin-left: var(--offcanvas-width);
+  }
+  /* this is to remove the backdrop */
+  .offcanvas-backdrop::before {
+    display: none;
+  }
+  .sidebar-nav {
+    -webkit-transform: none;
+    transform: none;
+    visibility: visible !important;
+    height: calc(100% - var(--topNavbarHeight));
+    top: var(--topNavbarHeight);
+  }
+}
+.bg-custom {
+  background-color: #1c2434;
+}
+
+.bg-home {
+  background-color: #242c38;
+}
+.limited-width {
+  max-width: 450px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+.btn-primary {
+  background-color: #04ecb6b0;
+  border-color: #000000b0;
+  color: black;
+  width: 200px;
+}
+.btn-primary:hover {
+  background-color: #00ffd9;
+  border-color: #0056b3;
+  color: black;
+}
+
+.pagination .page-link {
+  background-color: #f0f0f0;
+  color: #333;
+  border-color: #ccc;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #4163ac;
+  color: #ffffff;
+  border-color: #000000;
+}
+table a{
+  text-decoration: none;
+  color: #000000;
+  font-size: 18px;
+}
+table a:hover{
+  color: #0f1e3d
+}
+.alert {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: #82c084c4;
+}
+.alert-error {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: #c26767c4;
+}

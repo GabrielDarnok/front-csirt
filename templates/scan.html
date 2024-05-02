@@ -1,0 +1,130 @@
+{% set page_title = "dashboard" %}
+{% include 'partials/header.html' %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="modal fade" id="meuModal" tabindex="-1" role="dialog" aria-labelledby="meuModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="meuModalLabel">Aviso</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              {{message}}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+    <!-- offcanvas -->
+    <main class="mt-5 pt-3">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <h4>Scan</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3 d-flex justify-content-center align-items-center">
+            <div class="card h-100 d-flex flex-column justify-content-center">
+              <div class="card-body">
+                <h5 class="card-title mb-4 text-center fw-bold">Ferramenta de Scan</h5>
+                <form action="" method="POST">
+                  <div class="mb-3">
+                    <label for="nome" class="form-label">ASN</label>
+                    <input type="text" class="form-control" id="asn" name="asn" pattern="[0-9, ]*" placeholder="Digite o(s) asn(s)">
+                    <div id="arquivoHelp" class="form-text">Até 5 ASN, separados por virgula. (Ex: 52863, 28856, ...)</div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="arquivo" class="form-label">Lista de ASN (.txt)</label>
+                    <input type="file" class="form-control" id="arquivo" name="asns" accept=".txt">
+                    <div id="arquivoHelp" class="form-text">Faça o upload de uma lista de asn listados um abaixo do outro (.txt)</div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Vulnerabilidades que serão scaneadas</label>
+                    <div class="d-flex justify-content-between">
+                      <div class="form-check mr-3">
+                        <input class="form-check-input" type="checkbox" value="NTP" name="vulnScan" id="option1">
+                        <label class="form-check-label" for="option1">
+                          <span id="icon1" class="icon unchecked"></span> NTP
+                        </label>
+                      </div>
+                      <div class="form-check mr-3">
+                        <input class="form-check-input" type="checkbox" value="BGP" name="vulnScan" id="option2">
+                        <label class="form-check-label" for="option2">
+                          <span id="icon2" class="icon unchecked"></span> BGP
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="DNS" name="vulnScan" id="option3">
+                        <label class="form-check-label" for="option3">
+                          <span id="icon3" class="icon unchecked"></span> DNS
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="limited-width">OBS: Esta ferramenta pode fazer um Scan em 3 tipos de vulnerabilidades (NTP, BGP Exposto e DNS Recursivo)</p>      
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>                   
+          <div class="col-md-6 mb-3">
+            <div class="card h-100">
+              <div class="card-header">
+                <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
+                Vulnerabilidades detectadas pelo seu usuário
+              </div>
+              <div class="card-body">
+                <canvas class="line-chart" width="400" height="200"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <div class="card">
+              <div class="card-header">
+                <span><i class="bi bi-table me-2"></i></span> Ultimos Scans do seu usuário
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table
+                    id="example"
+                    class="table table-striped data-table"
+                    style="width: 100%"
+                  >
+                    <thead>
+                      <tr>
+                        <th>ASN</th>
+                        <th>Tipos de vuln</th>
+                        <th>Vulnerabilidades detectadas</th>
+                        <th>Quantidade de ips testados</th>
+                        <th>Data</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>52863</td>
+                        <td>3</td>
+                        <td>45</td>
+                        <td>1980</td>
+                        <td>25/04/2024</td>
+                      </tr>
+                    <tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+{% include 'partials/footer.html' %}
