@@ -34,10 +34,10 @@
             <div class="card h-100 d-flex flex-column justify-content-center">
               <div class="card-body">
                 <h5 class="card-title mb-4 text-center fw-bold">Ferramenta de Scan</h5>
-                <form action="" method="POST">
+                <form action="" method="POST" enctype="multipart/form-data">
                   <div class="mb-3">
                     <label for="nome" class="form-label">ASN</label>
-                    <input type="text" class="form-control" id="asn" name="asn" pattern="[0-9, ]*" placeholder="Digite o(s) asn(s)">
+                    <input type="text" class="form-control" id="asn" name="asn" pattern="[0-9, ]*" value="{{ asns }}" placeholder="Digite o(s) asn(s)">
                     <div id="arquivoHelp" class="form-text">Até 5 ASN, separados por virgula. (Ex: 52863, 28856, ...)</div>
                   </div>
                   <div class="mb-3">

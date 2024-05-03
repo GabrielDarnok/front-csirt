@@ -1,7 +1,25 @@
 from flask import Flask, send_file, render_template, jsonify, request, flash, session
+import re
 
 app = Flask(__name__)
 app.secret_key = 'q1w2e345'
+
+def trataTxt(file):
+    conteudo = None
+    if file:
+        texto = file.read().decode("utf-8")
+        if re.match(r'^\d+(\n\d+)*$', texto):
+            conteudo = texto.split('\n')      
+    return conteudo
+
+def juntaAsn(conteudo, asns):
+    if conteudo:
+        conteudo_asns = list(asns) + list(conteudo)
+    elif conteudo == None:
+        conteudo_asns = list(asns)
+    conteudo_asns = [asn.strip() for asn in conteudo_asns if asn.strip()]
+    conteudo_asns = set(conteudo_asns)
+    return conteudo_asns
 
 @app.route('/')
 def index():
@@ -21,14 +39,24 @@ def scan():
     if request.method == 'POST':
         asns = request.form['asn']
         asns = asns.split(',')
-        asns = [asn.strip() for asn in asns if asn.strip()]
-        asns = set(asns)
-        if not asns:
+        file= request.files['asns']
+
+        conteudo = trataTxt(file)
+        conteudo_asns = juntaAsn(conteudo, asns)
+
+        if not conteudo_asns:
             flash("Nenhum ASN foi digitado", "error")
-        elif len(asns) > 5:
+            return render_template('scan.html')
+        if conteudo == None:
+            flash("Arquivo txt inválido, aceito apenas txt, listando um abaixo do outro.", "error")
+            return render_template('scan.html')
+        elif len(conteudo_asns) > 5:
             flash("É preciso que adicione os asn's em uma lista txt, pois excederam o limite aceito.", "error")
-        #vulnScan = request.form.getlist['vulnScan']
-        print(asns)
+            asns_string = ', '.join(conteudo_asns)
+            return render_template('scan.html', asns=asns_string)
+        
+        vulnScan = request.form.getlist('vulnScan')
+        print(vulnScan, conteudo_asns)
     return render_template('scan.html')
 
 @app.route('/relatorio')

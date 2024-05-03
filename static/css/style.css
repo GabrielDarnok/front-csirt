@@ -97,3 +97,10 @@ table a:hover{
   border-radius: 4px;
   background-color: #c26767c4;
 }
+.nav-link.active {
+  margin-left: 5px;
+  width: 90%;
+  background-color: #b0b3b68c;
+  color: #fff;
+  border-radius: 5px;
+}
