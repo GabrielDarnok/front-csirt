@@ -104,3 +104,16 @@ table a:hover{
   color: #fff;
   border-radius: 5px;
 }
+
+.link-nav {
+  color: #939696;
+  font-weight: 400;
+  padding: .5rem 1rem;
+  margin-right: .5rem;
+  text-decoration: none;
+  border-radius: .25rem;
+}
+
+.link-nav:hover {
+  color: #c2c4c5;
+}
